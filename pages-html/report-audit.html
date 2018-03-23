@@ -1,0 +1,82 @@
+<div class="content">
+    <nav>
+        <div class="inputAddOn input_player">
+            <span>玩家id</span>
+            <input type="text" class="inputaddon">
+        </div>
+        <div class="inputAddOn input_server">
+            <span>选择服务器</span>
+            <select name="" id="" class="inputaddon">
+                <option selected="selected" disabled="disabled" style='display: none' value=''></option>
+                <option>选项一</option>
+                <option>选项二</option>
+                <option>选项三</option>
+                <option>选项四</option>
+                <option>选项五</option>
+                <option>选项六</option>
+                <option>选项七</option>
+            </select>
+        </div>
+        <div class="inputAddOn input_Reporter">
+            <span>举报者id</span>
+            <input type="text" class="inputaddon">
+        </div>
+
+        <div id="certain">
+            <i class="iconfont icon-opensearchkaifangsousuo animated infinite"></i>
+        </div>
+    </nav>
+    <div class="formAddOn">
+        <div class="row">
+            <span id="bulkIgnore">批量忽略</span>
+            <span id="bulkDelete">批量删除</span>
+        </div>
+        <form action="">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>多选</td>
+                        <td>玩家id</td>
+                        <td>昵称</td>
+                        <td>服务器</td>
+                        <td>举报人id</td>
+                        <td>举报人昵称</td>
+                        <td>图片</td>
+                        <td>操作</td>
+                        <td>剩余时间</td>
+                        <td>备注信息</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="checkbox">
+                        </td>
+                        <td>123</td>
+                        <td>yakasuo</td>
+                        <td>21</td>
+                        <td>13</td>
+                        <td>akuya</td>
+                        <td>
+                            <img src="../tt.png" alt="" class="smallPic">
+                        </td>
+                        <td>
+                            <span class="operate ignore">忽略举报</span>
+                            <span class="operate delete">删除头像</span>
+                        </td>
+                        <td>剩余时间</td>
+                        <td>
+                            <i class="iconfont icon-pan_icon" style="display:inline-block"></i>
+                            <a href="javascript:void(0)" title="">
+                                <input type="text" class="remarks">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </form>
+    </div>
+</div>
+
+<script src="../js/pages-js/report-audit.js"></script>

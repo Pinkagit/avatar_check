@@ -1,0 +1,286 @@
+body{
+    color: #33333d;
+}
+/* ---------header--------- */
+header{
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    z-index: 999;
+    background: #fff;
+    box-shadow: 0 0 1px rgba(0,0,0,0.25);
+}
+/* -------- mask -------- */
+.mask{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: none;
+    text-align: center;
+}
+.bigPic{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%) scale(3);
+}
+/* ----------aside--------- */
+aside{
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 90px 10px 10px;
+    box-shadow: 0 0 1px rgba(0,0,0,0.25);
+}
+aside>ul{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+aside>ul>li{
+    flex-basis:50px;
+    text-align: center;
+    font: 17px/50px "微软雅黑";
+    /* cursor: pointer; */
+}
+aside>ul>li>a{
+    color: #5e5e5e;
+}
+aside>ul>li>a.actived{
+    color: rgb(86, 181, 240);
+}
+aside>ul>li>a:hover{
+    border-bottom: 2px solid lightskyblue;
+}
+/* ----------container---------- */
+section.container{
+    margin-left: 200px;
+    height: auto;
+    overflow: hidden;
+    
+}
+/* ------------content----------- */
+.content{
+    margin-top: 60px;
+    width: 100%;
+    /* background: lightpink; */
+    box-sizing: border-box;
+    padding: 50px;
+}
+.content>nav{
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    position: relative;
+    padding-bottom: 20px;
+}
+#certain{
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    line-height: 80px;
+    text-align: center;
+    cursor: pointer;
+}
+#certain>.icon-opensearchkaifangsousuo{
+    display: inline-block;
+    font-size: 38px;
+    transition: all 1s;
+}
+#certain:hover .icon-opensearchkaifangsousuo{
+    color: lightskyblue;
+}
+.certain_actived{
+    color: lightskyblue;
+}
+/* ------------- inputAddOn ------------- */
+.inputAddOn{
+    height: 100%;
+    position: relative;
+    text-align: center;
+    line-height: 80px;
+}
+.inputAddOn>span{
+    position: absolute;
+    font-size: 20px;
+    color: #8B8B8B;
+    z-index: -1;
+}
+.inputAddOn>input{
+    border: none;
+    border-bottom: 1px solid #bccc;
+    transition: all 1s;
+    font-size: 22px;
+    color: #000;
+    background: rgba(255, 255, 255, 0);
+}
+.inputAddOn>input:focus{
+    outline: none;
+}
+.inputAddOn>select{
+    font-size: 22px;
+    width: 35%;
+    border: none;
+    border-bottom: 1px solid #bccc;
+    background: rgba(255, 255, 255, 0);
+    /* 隐藏select的下拉图标 */
+    appearance:none;        
+    -moz-appearance:none;
+    -webkit-appearance:none;
+}
+.inputAddOn>select:focus{
+    outline: none;
+}
+.inputAddOn>select option{
+    font-size: 18px;
+    color: #8B8B8B;
+    padding-left: 60px;
+}
+.datetime{
+    width: 45%;
+}
+/* --------- inputAddOn layout -------- */
+.input_player{
+    flex: 1;
+}
+.input_server{
+    flex: 1;
+}
+.input_Reporter{
+    flex: 1;
+}
+.input_timePicker{
+    flex: 1;
+}
+/* --------------- formAddOn ---------------- */
+.formAddOn{
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+    /* background: lightgoldenrodyellow; */
+}
+.row{
+    width: 100%;
+    height: 50px;
+    /* background: lightblue; */
+    line-height: 50px;
+    padding-left: 50px;
+    box-sizing: border-box;
+}
+.row>span{
+    border: 1px solid #8B8B8B;
+    display: inline-block;
+    width: 80px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition:all 1s cubic-bezier(0.6, 4, 0.32, 0.13);
+}
+.row>span:nth-of-type(1){
+    border: 1px solid rgb(89, 179, 235);
+    background: lightskyblue;
+    color: #fff;
+}
+.row>span:nth-of-type(2){
+    border: 1px solid rgb(206, 5, 22);
+    background: #FF1022;
+    color: #fff;
+}
+.row>span:nth-of-type(1):hover{
+    background: lightskyblue;
+    color: #fff;
+    border: 1px solid #eee;
+}
+
+.row>span:nth-of-type(2):hover{
+    background: #FF1022;
+    color: #fff;
+    border: 1px solid #eee;
+}
+.row>span:active{
+    transform: scale(.8);
+}
+form{
+    margin-top: 30px;
+}
+table, th, td{
+    border: 1px solid #bccc;
+}
+td{
+    text-align: center;
+    font-size: 18px;
+    padding: 5px;
+}
+.smallPic{
+    cursor: pointer;
+}
+/* --------- operate --------- */
+.operate{
+    display: inline-block;
+   /*  width: 80px;
+    height: 35px; */
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff;
+    /* line-height: 35px; */
+    padding: 5px 8px;
+    transition:all 1s cubic-bezier(0.6, 4, 0.32, 0.13);
+}
+.operate:hover{
+    border: 1px solid #fff;
+}
+.operate:active{
+    transform: scale(.8);
+}
+.pass{
+    border: 1px solid lightskyblue;
+    background: lightskyblue;
+}
+.reject{
+    border: 1px solid #FF1022;
+    background: #FF1022;
+}
+.ignore{
+    border: 1px solid lightskyblue;
+    background: lightskyblue;
+}
+.delete{
+    border: 1px solid #FF1022;
+    background: #FF1022;
+}
+input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+}
+.remarks{
+    border: none;
+    border-bottom: 1px solid #bccc;
+    font-size: 18px;
+    color:#33333d;
+    width: 0;
+}
+.remarks:focus{
+    outline: none;
+}
+td>.icon-pan_icon{
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 1s;
+}
+td>.icon-pan_icon.rotate{
+    transform: rotate(-90deg);
+    transition: transform 1s;
+}
