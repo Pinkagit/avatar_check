@@ -1,7 +1,7 @@
 $(function(){
-    $(".container").load("../pages-html/head-audit.html")
+    $(".container").load("./pages-html/head-audit.html")
 
-    var asideArr = ["./pages-html/head-audit.html", "/pages-html/report-audit.html", "/pages-html/oper-record.html"]
+    var asideArr = ["./pages-html/head-audit.html", "./pages-html/report-audit.html", "./pages-html/oper-record.html"]
 
     //aside 点击加载事件
     $("aside").find("li").each(function(i){
