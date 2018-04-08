@@ -1,20 +1,17 @@
-<div class="content">
+<div class="content" id="audit">
+    <div id="expand_filter" class="animated fadeInDown">
+        <i class="iconfont icon-xiala2 "></i>
+    </div>
     <nav>
         <div class="inputAddOn input_player">
             <span>玩家id</span>
-            <input type="text" class="inputaddon">
+            <input type="text" class="inputaddon" data-bind="value:id">
         </div>
         <div class="inputAddOn input_server">
             <span>选择服务器</span>
-            <select name="" id="" class="inputaddon">
-                <option selected="selected" disabled="disabled" style='display: none' value=''></option>
-                <option>选项一</option>
-                <option>选项二</option>
-                <option>选项三</option>
-                <option>选项四</option>
-                <option>选项五</option>
-                <option>选项六</option>
-                <option>选项七</option>
+            <select name="" id="" class="inputaddon" data-bind="options:serverList,optionsText:'',optionsValue:'',value:selectedServer">
+                <!-- <option selected="selected" disabled="disabled" style='display: none' ></option> -->
+                
             </select>
         </div>
         <div id="certain">
@@ -23,8 +20,8 @@
     </nav>
     <div class="formAddOn">
         <div class="row">
-            <span id="bulkPass">批量通过</span>
-            <span id="bulkReject">批量拒绝</span>
+            <span class="row_btn" id="bulkReject">批量拒绝</span>
+            <span class="row_btn" id="bulkPass">批量通过</span>
         </div>
         <form action="">
             <table width="100%">
@@ -40,20 +37,20 @@
                         <td>备注信息</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="audit_tbody" data-bind="foreach:dataList">
                     <tr>
                         <td>
-                            <input type="checkbox">
+                            <input type="checkbox" class="checks">
                         </td>
-                        <td>123</td>
-                        <td>yakasuo</td>
-                        <td>21</td>
-                        <td><img src="../tt.png" alt="" class="smallPic"></td>
+                        <td data-bind="text:Id"></td>
+                        <td data-bind="text:Playerid"></td>
+                        <td data-bind="text: Zoneid"></td>
+                        <td><img alt="" class="smallPic" data-bind="attr:{ src: Path }"></td>
                         <td>
-                            <span class="operate pass">通过</span>
                             <span class="operate reject">拒绝</span>
+                            <span class="operate pass">通过</span>
                         </td>
-                        <td>剩余时间</td>
+                        <td class="countDown" data-bind="attr:{ time: AddTime }">-- 小时 -- 分 -- 秒</td>
                         <td>
                             <i class="iconfont icon-pan_icon" style="display:inline-block"></i>
                             <a href="javascript:void(0)" title=""><input type="text" class="remarks"></a>
@@ -61,9 +58,10 @@
                     </tr>
                 </tbody>
             </table>
+            <div id="pager"></div>
             <!-- 当表单中只有一个文本框时， 文本框内回车会触发默认事件（提交表单） -->
             <input type="text" style="display:none" />
         </form>
     </div>
 </div>
-<script src="../js/pages-js/head-audit.js"></script>
+<script src="static/js/pages-js/head-audit.js"></script>

@@ -1,25 +1,22 @@
-<div class="content">
+<div class="content" id="report">
+    <div id="expand_filter" class="animated fadeInDown">
+        <i class="iconfont icon-xiala2 "></i>
+    </div>
     <nav>
         <div class="inputAddOn input_player">
             <span>玩家id</span>
-            <input type="text" class="inputaddon">
+            <input type="text" class="inputaddon" data-bind="value: id">
         </div>
         <div class="inputAddOn input_server">
             <span>选择服务器</span>
             <select name="" id="" class="inputaddon">
-                <option selected="selected" disabled="disabled" style='display: none' value=''></option>
-                <option>选项一</option>
-                <option>选项二</option>
-                <option>选项三</option>
-                <option>选项四</option>
-                <option>选项五</option>
-                <option>选项六</option>
-                <option>选项七</option>
+                <!-- <option selected="selected" disabled="disabled" style='display: none' value=''></option> -->
+                
             </select>
         </div>
         <div class="inputAddOn input_Reporter">
             <span>举报者id</span>
-            <input type="text" class="inputaddon">
+            <input type="text" class="inputaddon" data-bind="value: reportId">
         </div>
 
         <div id="certain">
@@ -28,8 +25,8 @@
     </nav>
     <div class="formAddOn">
         <div class="row">
-            <span id="bulkIgnore">批量忽略</span>
             <span id="bulkDelete">批量删除</span>
+            <span id="bulkIgnore">批量忽略</span>
         </div>
         <form action="">
             <table width="100%">
@@ -47,24 +44,24 @@
                         <td>备注信息</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="report_tbody" data-bind="foreach: dataList">
                     <tr>
                         <td>
-                            <input type="checkbox">
+                            <input type="checkbox" class="checks">
                         </td>
-                        <td>123</td>
-                        <td>yakasuo</td>
-                        <td>21</td>
+                        <td data-bind="text:Id"></td>
+                        <td data-bind="text:Playerid"></td>
+                        <td data-bind="text: Zoneid"></td>
                         <td>13</td>
                         <td>akuya</td>
                         <td>
-                            <img src="../tt.png" alt="" class="smallPic">
+                            <img data-bind="attr:{ src: Path }" alt="" class="smallPic">
                         </td>
                         <td>
-                            <span class="operate ignore">忽略举报</span>
                             <span class="operate delete">删除头像</span>
+                            <span class="operate ignore">忽略举报</span>
                         </td>
-                        <td>剩余时间</td>
+                        <td class="countDown" data-bind="attr:{ time: AddTime }">-- 小时 -- 分 -- 秒</td>
                         <td>
                             <i class="iconfont icon-pan_icon" style="display:inline-block"></i>
                             <a href="javascript:void(0)" title="">
@@ -79,4 +76,4 @@
     </div>
 </div>
 
-<script src="../js/pages-js/report-audit.js"></script>
+<script src="static/js/pages-js/report-audit.js"></script>

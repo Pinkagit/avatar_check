@@ -14,3 +14,6 @@ a{
 table{
     border-collapse:collapse;
 }
+p{
+    margin: 0;
+}
