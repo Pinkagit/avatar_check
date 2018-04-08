@@ -29,7 +29,7 @@ $(function(){
             type: "get",
             async: true,
             // url: "/reqreview",
-            url:"/test.json",
+            url:"../../test.json",
             data: jsonData,
             dataType: "json",
             error: function (jqXHR, textStatus, errorThrown) {
