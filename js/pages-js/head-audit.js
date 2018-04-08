@@ -28,8 +28,8 @@ $(function(){
         $.ajax({
             type: "get",
             async: true,
-            url: "/reqreview",
-            // url:"/static/test.json",
+            // url: "/reqreview",
+            url:"/static/test.json",
             data: jsonData,
             dataType: "json",
             error: function (jqXHR, textStatus, errorThrown) {
