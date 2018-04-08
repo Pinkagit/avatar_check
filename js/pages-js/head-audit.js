@@ -28,9 +28,8 @@ $(function(){
         $.ajax({
             type: "get",
             async: true,
-            // url: "/reqreview",
-            url:"../test.json",
-            data: "",
+            url: "/reqreview",
+            data: jsonData,
             dataType: "json",
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("jqXHR: ", jqXHR);
