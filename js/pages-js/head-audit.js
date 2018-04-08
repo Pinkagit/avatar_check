@@ -30,7 +30,7 @@ $(function(){
             async: true,
             // url: "/reqreview",
             url:"../test.json",
-            data: jsonData,
+            data: "",
             dataType: "json",
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("jqXHR: ", jqXHR);
