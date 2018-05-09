@@ -1,4 +1,11 @@
 $(function(){
+    var IndexViewModel = function() {
+        this.tip_msg = ko.observable();
+    }
+
+    var newIndexViewModel = new IndexViewModel();
+    ko.applyBindings(newIndexViewModel, $("#main_container").get(0));
+    
     $(".container").load("pages-html/head-audit.html")
 
     var asideArr = ["pages-html/head-audit.html", "pages-html/report-audit.html", "pages-html/oper-record.html"]
@@ -60,6 +67,26 @@ $(function(){
         if ($(this).val()=="") {
             $(this).animate({"width":"0"});
             $(this).parent().prev().removeClass('rotate');
+        } else {
+            var jsonData = {
+                id: parseInt($(this).parents('td').siblings(".uid").text()),
+                comment: $(this).val()
+            }
+            $(this).parent().attr("title", $(this).val());      // 给a标签的添加提示
+            console.log(jsonData)
+            
+            $.ajax({
+                type:"get",
+                async: true,
+                url:"/comment",
+                data: jsonData,
+                error: function(err){
+                    console.log(err)
+                },
+                success: function(data) {
+                    console.log("remarks data:", data);
+                }
+            })
         }
     }).on("input", ".remarks", function () {
         $(this).parent().attr("title", $(this).val());      // 给a标签的添加提示
@@ -77,32 +104,43 @@ $(function(){
    
     // 全局ajax
     $(document).ajaxSuccess(function(event, jqxhr, settings){
-        console.log(jqxhr)
         // 关闭loading图片
         $(".loading").css("display", "none");
-        //显示提示框
-        $(".modal").removeClass("fadeOutRight");
-        $(".modal").addClass("fadeInRight");
-        $(".modal").css("display", "block");
 
-        /* setTimeout(() => {      //3s后自动关闭提示框
-            $(".modal").removeClass("fadeInRight");
-            $(".modal").addClass("fadeOutRight");
-        }, 3000); */
+        $(".modal").removeClass("fadeInRight");
+        $(".modal").addClass("fadeOutRight");
+        
+        if (jqxhr.responseText == "fail" || jqxhr.responseText == "success") {
+            setTimeout(() => {
+                //显示提示框
+                $(".modal").removeClass("fadeOutRight");
+                $(".modal").addClass("fadeInRight");
+                $(".modal").css("display", "block");
+
+                newIndexViewModel.tip_msg(jqxhr.responseText)
+            }, 500);
+            
+        }
     })
     
     $(document).ajaxError(function(event, jqxhr, settings) {
         //关闭loading图片
         $(".loading").css("display", "none");
-        //显示提示框
-        $(".modal").removeClass("fadeOutRight");
-        $(".modal").addClass("fadeInRight");
-        $(".modal").css("display", "block");
 
-        /* setTimeout(() => {      //3s后自动关闭提示框
-            $(".modal").removeClass("fadeInRight");
-            $(".modal").addClass("fadeOutRight");
-        }, 3000); */
+        $(".modal").removeClass("fadeInRight");
+        $(".modal").addClass("fadeOutRight");
+        
+        if (jqxhr.responseText == "fail" || jqxhr.responseText == "success") {
+            setTimeout(() => {
+                //显示提示框
+                $(".modal").removeClass("fadeOutRight");
+                $(".modal").addClass("fadeInRight");
+                $(".modal").css("display", "block");
+
+                newIndexViewModel.tip_msg(jqxhr.responseText)
+            }, 500);
+            
+        }
 
     })
 

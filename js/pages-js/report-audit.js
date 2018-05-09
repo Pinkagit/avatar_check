@@ -29,8 +29,8 @@ $(function(){
         $.ajax({
             type: "get",
             async: true,
-            // url: "/reqreview",
-            url: "/static/test.json",
+            url: "/reqreview",
+            // url: "/static/test.json",
             data: jsonData,
             dataType: "json",
             error: function (jqXHR, textStatus, errorThrown) {
@@ -71,48 +71,62 @@ $(function(){
     //批量忽略
     $(document).on("click", "#bulkIgnore", function () {
         var operData = [];
+        var thisArray = [];
 
         $(".checks").each(function (i) {
             if ($(this).is(":checked")) {
+                thisArray.push($(this).parent().siblings("td").eq(6));
+                
                 var uId = $(this).parent().siblings("td").eq(0).text();
                 operData.push({ ID: uId, Valid: 1 });
             }
         })
 
         if (operData.length != 0) {
-            operate(operData);
+            operate(operData, thisArray, 1);
         }
     })
     //批量删除
     $(document).on("click", "#bulkDelete", function () {
         var operData = [];
-
+        var thisArray = [];
+        
         $(".checks").each(function (i) {
             if ($(this).is(":checked")) {
+                thisArray.push($(this).parent().siblings("td").eq(6));
+                
                 var uId = $(this).parent().siblings("td").eq(0).text();
                 operData.push({ ID: uId, Valid: 0 });
             }
         })
 
         if (operData.length != 0) {
-            operate(operData);
+            operate(operData, thisArray, 0);
         }
     })
     //删除头像
     $(document).on("click", ".delete", function () {
-        var uId = $(this).parent().siblings("td").eq(1).text();
+        var thisArray = [];
+        var uId = parseInt($(this).parent().siblings("td").eq(1).text());
 
-        operate([{ ID: uId, Valid: 0 }]);
+        thisArray.push($(this).parent());
+        
+        operate([{ ID: uId, Valid: 0 }], thisArray, 0);
     })
     //忽略举报
     $(document).on("click", ".ignore", function () {
-        var uId = $(this).parent().siblings("td").eq(1).text();
+        var thisArray = [];
+        var uId = parseInt($(this).parent().siblings("td").eq(1).text());
 
-        operate([{ ID: uId, Valid: 1 }]);
+        thisArray.push($(this).parent());
+        
+        operate([{ id: uId, valid: 1 }], thisArray, 1);
     })
 
     // 操作
-    function operate(operData) {
+    function operate(operData, thatArray, _index) {
+        operData = { "reviewreqlist": operData }
+        operData = JSON.stringify(operData);
         console.log("operData: ", operData);
 
         $(".loading").css("display", "block");
@@ -122,7 +136,6 @@ $(function(){
             async: true,
             url: "/doreview",
             data: operData,
-            dataType: "json",
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("jqXHR: ", jqXHR);
                 console.log("textStatus: ", textStatus);
@@ -130,6 +143,17 @@ $(function(){
             },
             success: function (data) {
                 console.log(data);
+                if (data == "success") {
+                    for (let i = 0, len = thatArray.length; i < len; i++) {
+                        thatArray[i].siblings("td").eq(0).find("input").attr("disabled", "disabled");
+                        if (_index == 0) {
+                            thatArray[i].text("已删除");
+                        } else if (_index == 1) {
+                            thatArray[i].text("已忽略");
+                        }
+                    }
+                    $(".checks").attr("checked", false);
+                }
             }
         })
     }

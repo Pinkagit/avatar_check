@@ -11,7 +11,6 @@
             <span>选择服务器</span>
             <select name="" id="" class="inputaddon" data-bind="options:serverList,optionsText:'',optionsValue:'',value:selectedServer">
                 <!-- <option selected="selected" disabled="disabled" style='display: none' ></option> -->
-                
             </select>
         </div>
         <div id="certain">
@@ -28,8 +27,8 @@
                 <thead>
                     <tr>
                         <td>多选</td>
+                        <td>序号</td>
                         <td>玩家id</td>
-                        <td>昵称</td>
                         <td>服务器</td>
                         <td>图片</td>
                         <td>操作</td>
@@ -39,21 +38,21 @@
                 </thead>
                 <tbody id="audit_tbody" data-bind="foreach:dataList">
                     <tr>
-                        <td>
+                        <td width="110">
                             <input type="checkbox" class="checks">
                         </td>
-                        <td data-bind="text:Id"></td>
-                        <td data-bind="text:Playerid"></td>
-                        <td data-bind="text: Zoneid"></td>
-                        <td><img alt="" class="smallPic" data-bind="attr:{ src: Path }"></td>
-                        <td>
+                        <td class="uid" data-bind="text:id" width="110"></td>
+                        <td data-bind="text:player" width="110"></td>
+                        <td data-bind="text: zoneid" width="110"></td>
+                        <td width="150"><img alt="" class="smallPic" data-bind="attr:{ src:path }" width="100%"></td>
+                        <td class="oper" width="280">
                             <span class="operate reject">拒绝</span>
                             <span class="operate pass">通过</span>
                         </td>
-                        <td class="countDown" data-bind="attr:{ time: AddTime }">-- 小时 -- 分 -- 秒</td>
-                        <td>
+                        <td class="countDown" data-bind="attr:{ time: addtime }" width="280">-- 小时 -- 分 -- 秒</td>
+                        <td width="340">
                             <i class="iconfont icon-pan_icon" style="display:inline-block"></i>
-                            <a href="javascript:void(0)" title=""><input type="text" class="remarks"></a>
+                            <a href="javascript:void(0)" title=""><input type="text" class="remarks" data-bind="value:comment"></a>
                         </td>
                     </tr>
                 </tbody>

@@ -28,7 +28,8 @@ $(function(){
         $.ajax({
             type: "get",
             async: true,
-            url: "/reqreview",
+            // url: "/reqreview",
+            url:"test.json",
             data: jsonData,
             dataType: "json",
             error: function (jqXHR, textStatus, errorThrown) {
@@ -39,18 +40,39 @@ $(function(){
             success: function (data) {
                 console.log("receive data: ", data);
 
-                newHeadAuditModel.dataList(data.test);
+                for (let i = 0, len = data.reviewlist.length; i < len; i++) {
+                    data.reviewlist[i].addtime = parseInt(data.reviewlist[i].addtime + "000");
+                }
+                newHeadAuditModel.dataList(data.reviewlist);
 
                 $(".countDown").each(function(i){
+
                     var countTimer = setInterval( () => {
                         var countTime = countdown($(this).attr("time"), 0);
                         $(this).text(countTime);
+                        if (countTime == "已自动拒绝" || countTime == "已自动忽略" ) {
 
-                        if (countTime == "已自动拒绝" || countTime == "已自动忽略") {
-                            clearInterval(countTimer)
+                            var uId = parseInt($(this).siblings(".uid").text());
+                            var thisArray = [];
+
+                            thisArray.push($(this).siblings(".oper"));
+
+                            operate([{ id: uId, valid: 0 }], thisArray, 0); //
+                            
+                            clearInterval(countTimer);
                         }
-                        
+                        if ($(this).siblings(".oper").text() == "已通过" || $(this).siblings(".oper").text() == "已拒绝") {
+                            clearInterval(countTimer);
+
+                            $(this).text("-- 小时 -- 分 -- 秒");
+                        }
                     }, 1000);
+                })
+
+                $(".remarks").each(function(i){
+                    if ($(this).val() != "") {
+                        $(this).parent().siblings(".icon-pan_icon").trigger('click')
+                    }
                 })
                 
                 $("#pager").pager({ pagenumber: pageclickednumber, pagecount: data.pagenum, buttonClickCallback: pageClick });
@@ -69,50 +91,65 @@ $(function(){
     //批量通过
     $(document).on("click", "#bulkPass", function () {
         var operData = [];
+        var thisArray = [];
 
         $(".checks").each(function(i){
             if ($(this).is(":checked")) {
-                var uId = $(this).parent().siblings("td").eq(0).text();
+                thisArray.push($(this).parent().siblings(".oper"));
+                
+                var uId = parseInt($(this).parent().siblings(".uid").text());
                 operData.push({ID: uId, Valid: 1});
             }
         })
 
         if (operData.length != 0) {
-            operate(operData);
+            operate(operData, thisArray, 1);
         }
     })
     //批量拒绝
     $(document).on("click", "#bulkReject", function () {
         var operData = [];
+        var thisArray = [];
 
         $(".checks").each(function (i) {
             if ($(this).is(":checked")) {
-                var uId = $(this).parent().siblings("td").eq(0).text();
+                thisArray.push($(this).parent().siblings(".oper"));
+                
+                var uId = parseInt($(this).parent().siblings(".uid").text());
                 operData.push({ ID: uId, Valid: 0 });
             }
         })
 
         if (operData.length != 0) {
-            operate(operData);
+            operate(operData, thisArray, 0);
         }
     })
     //拒绝
     $(document).on("click", ".reject", function () {
-        var uId = $(this).parent().siblings("td").eq(1).text();
+        var uId = parseInt($(this).parent().siblings(".uid").text());
+        var thisArray = [];
 
-        operate([{ ID: uId, Valid: 0 }]);
+        thisArray.push($(this).parent());
+        
+        operate([{ id: uId, valid: 0 }], thisArray, 0);
     })
     //通过
     $(document).on("click", ".pass", function (){
-        var uId = $(this).parent().siblings("td").eq(1).text();
+        var uId = parseInt($(this).parent().siblings(".uid").text());
+        var thisArray = [];
 
-        operate([{ ID: uId, Valid: 1 }]);
+        thisArray.push($(this).parent());
+
+        operate([{ id: uId, valid: 1 }], thisArray, 1);
     })
 
     // 操作
-    function operate(operData) {
-        console.log("operData: ", operData);
+    function operate(operData, thatArray, _index) {
+        operData = { "reviewreqlist": operData }
+        operData = JSON.stringify(operData);
 
+        console.log("operData: ", operData);
+        
         $(".loading").css("display", "block");
         
         $.ajax({
@@ -120,7 +157,7 @@ $(function(){
             async: true,
             url: "/doreview",
             data: operData,
-            dataType: "json",
+            contentType: 'application/json',
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("jqXHR: ", jqXHR);
                 console.log("textStatus: ", textStatus);
@@ -128,6 +165,18 @@ $(function(){
             },
             success: function(data) {
                 console.log(data);
+                
+                if (data == "success") {
+                    for (let i = 0, len = thatArray.length; i < len; i++) {
+                        thatArray[i].siblings("td").eq(0).find("input").attr("disabled", "disabled");
+                        if (_index == 0) {
+                            thatArray[i].text("已拒绝");
+                        } else if (_index == 1) {
+                            thatArray[i].text("已通过");
+                        }
+                    }
+                    $(".checks").attr("checked", false);
+                }
             }
         })
     }
